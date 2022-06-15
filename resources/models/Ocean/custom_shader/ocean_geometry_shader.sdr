@@ -1,0 +1,46 @@
+#version 400 core
+
+
+in VS_OUT {
+  vec2 fragTexCoord;
+  vec3 fragPos;  //in World space coordinate system
+  vec3 fragNormal;
+  mat3 TBN;
+} vs_out[];
+
+out VS_OUT{
+  vec2 fragTexCoord;
+  vec3 fragPos;  //in World space coordinate system
+  vec3 fragNormal;
+  mat3 TBN;
+} vs_pass;
+
+layout ( triangles ) in;
+layout ( triangle_strip, max_vertices = 3 ) out;
+
+uniform mat4 model;
+uniform float time;
+
+void main()
+{
+    vec3 firstVector = gl_in[2].gl_Position.xyz - gl_in[0].gl_Position.xyz;
+    vec3 secondVector = gl_in[1].gl_Position.xyz - gl_in[0].gl_Position.xyz;
+    //vec3 firstVector = vs_out[0].fragPos - vs_out[1].fragPos;
+    //vec3 secondVector = vs_out[0].fragPos - vs_out[2].fragPos;
+
+    vec3 N = mat3(model) * normalize(cross(firstVector, secondVector));
+
+    vec3 T = normalize(firstVector);
+    vec3 B = normalize(cross(N, T));
+    
+
+    for(int i=0;i<3;i++){
+      gl_Position = gl_in[i].gl_Position;
+      vs_pass.fragPos = vs_out[i].fragPos;
+      vs_pass.fragTexCoord = vs_out[i].fragTexCoord;
+      vs_pass.fragNormal = N;
+      vs_pass.TBN = mat3(T, B, N);
+      EmitVertex();
+    }
+    EndPrimitive();
+}
