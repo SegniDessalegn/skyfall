@@ -1,3 +1,4 @@
+from Aircraft import Aircraft
 from Renderer import Renderer
 
 import glm
@@ -8,7 +9,7 @@ from model import Model
 
 
 def main():
-    renderer = Renderer("Learn OpenGL", 800, 800)
+    renderer = Renderer("Skyfall", 500, 300)
     
     dl = DirectionalLight(glm.vec3(1), glm.vec3(0.5), glm.vec3(0.5))
     # dl.setDirection(glm.vec3(0.0, 0.0, -1.0))
@@ -74,7 +75,7 @@ def main():
     renderer.add_model(ocean_final)
 
 
-    weird_aircraft = Model()
+    weird_aircraft = Aircraft()
     weird_aircraft.make_POV()
     weird_aircraft.load_model('resources/models/Aircraft/E 45 Aircraft_obj.obj')
     weird_aircraft.scale_n_place(glm.vec3(1000.0, -5090.0, 9950.0), glm.vec3(10))

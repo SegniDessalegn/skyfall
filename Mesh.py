@@ -22,7 +22,7 @@ class Material(object):
         self.opacity = 1.0
         self.IOR = 1.0
 
-    def set_map_textures(self, textures: list[Texture]) -> None:
+    def set_map_textures(self, textures) -> None:
         for texture in textures:
             self.textures[texture.type] = texture
 
@@ -36,7 +36,7 @@ class Material(object):
 class Mesh(object):
 
     
-    def __init__(self, id: int, vertices: list[float], indices: list[int], attributes=[3,3,2], count=1) -> None:
+    def __init__(self, id: int, vertices, indices, attributes=[3,3,2], count=1) -> None:
         self.id = id
         
         self.vertices = np.array(vertices, np.float32)

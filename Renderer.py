@@ -14,7 +14,6 @@ from model import Model
 from scene import Scene
 
 
-
 skyboxVertices = [
     # positions          
     -1.0,  1.0, -1.0,
@@ -84,13 +83,14 @@ class Renderer:
         glfw.window_hint(glfw.CONTEXT_VERSION_MINOR, 0)
         glfw.window_hint(glfw.OPENGL_PROFILE, glfw.OPENGL_CORE_PROFILE)
         glfw.window_hint(glfw.RESIZABLE, False)
-
+        
         self.window = glfw.create_window(self.width, self.height, title, None, None)
         if not self.window:
             print("Failed to create glfw window!!")
             glfw.terminate()
             sys.exit(1)
         glfw.make_context_current(self.window)
+        glfw.set_window_pos(self.window, 0, 0)
         # User Input Handling
         glfw.set_key_callback(self.window, Renderer.key_callback)
         glfw.set_cursor_pos_callback(self.window, self.mouse_callback)
@@ -108,7 +108,7 @@ class Renderer:
         self.environment = None
 
 
-    def configure_light_source(self, sources: list[LightSource]):
+    def configure_light_source(self, sources):
         for source in sources:
             self.scene.add_light_source(source)
 
@@ -159,7 +159,7 @@ class Renderer:
         glfw.terminate()
         sys.exit(0)
 
-    def setupEnvironment(self, tblrfb: list[str]):
+    def setupEnvironment(self, tblrfb):
 
         cubemap = CubeMap(tblrfb, 5)
         # print(cubemap.tex_id)
@@ -218,6 +218,16 @@ class Renderer:
             keys[glfw.KEY_DOWN] = True
         elif key == glfw.KEY_DOWN and action == glfw.RELEASE:
             keys[glfw.KEY_DOWN] = False
+        
+        if key == glfw.KEY_R and action == glfw.PRESS:
+            keys[glfw.KEY_R] = True
+        elif key == glfw.KEY_R and action == glfw.RELEASE:
+            keys[glfw.KEY_R] = False
+        
+        if key == glfw.KEY_T and action == glfw.PRESS:
+            keys[glfw.KEY_T] = True
+        elif key == glfw.KEY_T and action == glfw.RELEASE:
+            keys[glfw.KEY_T] = False
 
     # @staticmethodself
     def mouse_callback(self, window, xPos, yPos):
