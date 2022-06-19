@@ -9,7 +9,7 @@ from model import Model
 
 
 def main():
-    renderer = Renderer("Skyfall", 500, 300)
+    renderer = Renderer("Skyfall", 1380, 800)
     
     dl = DirectionalLight(glm.vec3(1), glm.vec3(0.5), glm.vec3(0.5))
     # dl.setDirection(glm.vec3(0.0, 0.0, -1.0))
@@ -47,10 +47,25 @@ def main():
     # skydome.scale_n_place(glm.vec3(-245000.0, 0.0, -245000.0), glm.vec3(1000))
     # renderer.add_model(skydome)
 
-    # weird_rock = Model()
-    # weird_rock.load_model('resources/models/Weird_Rock/weird_rock.obj')
-    # weird_rock.scale_n_place(glm.vec3(10.0, 10.0, 0.0), glm.vec3(0.01))
-    # renderer.add_model(weird_rock)
+    weird_rock = Model()
+    weird_rock.load_model('resources/models/Weird_Rock/weird_rock.obj')
+    weird_rock.scale_n_place(glm.vec3(-3000.0, -5000.0, -10000.0), glm.vec3(10))
+    renderer.add_model(weird_rock)
+    
+    weird_rock1 = Model()
+    weird_rock1.load_model('resources/models/Weird_Rock/weird_rock.obj')
+    weird_rock1.scale_n_place(glm.vec3(-20000.0, -5000.0, -60000.0), glm.vec3(10))
+    renderer.add_model(weird_rock1)
+
+    weird_rock2 = Model()
+    weird_rock2.load_model('resources/models/Weird_Rock/weird_rock.obj')
+    weird_rock2.scale_n_place(glm.vec3(-25000.0, -5000.0, -70000.0), glm.vec3(10))
+    renderer.add_model(weird_rock2)
+    
+    weird_rock3 = Model()
+    weird_rock3.load_model('resources/models/Weird_Rock/weird_rock.obj')
+    weird_rock3.scale_n_place(glm.vec3(30000.0, -5000.0, -80000.0), glm.vec3(10))
+    renderer.add_model(weird_rock3)
 
     # skyfall_env = Model()
     # skyfall_env.load_model('resources/models/sykfall/skyfall_test.obj')
@@ -77,7 +92,7 @@ def main():
     weird_aircraft = Aircraft()
     # weird_aircraft.make_POV()
     weird_aircraft.load_model('resources/models/Aircraft/E 45 Aircraft_obj.obj')
-    weird_aircraft.scale_n_place(glm.vec3(1000.0, -5090.0, 9950.0), glm.vec3(10))
+    weird_aircraft.scale_n_place(glm.vec3(1000.0, -4900.0, 9950.0), glm.vec3(10))
     renderer.add_model(weird_aircraft)
     renderer.start()
 
