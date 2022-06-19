@@ -11,6 +11,7 @@ import glm
 class Aircraft(Model):
     roll_angle = 0
     pitch_angle = 0
+    yaw_angle = 0
     vertical_rotation_angle = 0
     camera = Camera(glm.vec3(1000.0, -5000.0, 10000.0), glm.vec3(1000.0, -10000.0, 0.0))
     def __init__(self) -> None:
@@ -39,16 +40,23 @@ class Aircraft(Model):
             
         if keys.__contains__(glfw.KEY_A) and keys[glfw.KEY_A]:
             self.rotate("left")
+
+        if keys.__contains__(glfw.KEY_T) and keys[glfw.KEY_T]:
+            self.rotate("yaw_left")
+
+        if keys.__contains__(glfw.KEY_R) and keys[glfw.KEY_R]:
+            self.rotate("yaw_right")
             
         # elif keys.__contains__(glfw.KEY_A) and not keys[glfw.KEY_A]:
         #     self.restore_rotation("left")
         
         x, y, z = self.location
         Aircraft.camera.cameraPos = self.location
-        self.scale_n_place(glm.vec3(x, y + 100*glm.sin(Aircraft.pitch_angle), z - 100*glm.cos(Aircraft.pitch_angle)), self.scale)
+        self.scale_n_place(glm.vec3(x + 100*Aircraft.yaw_angle, y + 100*glm.sin(Aircraft.pitch_angle), z - 100*glm.cos(Aircraft.pitch_angle)), self.scale)
         
         self.set_orientation(-Aircraft.camera.cameraFront, glm.degrees(Aircraft.roll_angle))
         # self.set_orientation(Aircraft.camera.cameraRight,  glm.degrees(Aircraft.pitch_angle))
+
 
         Aircraft.camera.setCoordinateSystem(self.location)
         Aircraft.camera.changeRoll(Aircraft.roll_angle)
@@ -71,3 +79,9 @@ class Aircraft(Model):
             Aircraft.pitch_angle += -0.1
             if Aircraft.vertical_rotation_angle < 0.5 and Aircraft.vertical_rotation_angle > -0.5:
                 Aircraft.vertical_rotation_angle -= 0.1
+
+        if direction == "yaw_left":
+            Aircraft.yaw_angle += 0.1
+
+        elif direction == "yaw_right":
+            Aircraft.yaw_angle -= 0.1
