@@ -1,3 +1,4 @@
+from Aircraft import Aircraft
 from Shader import Shader
 from lighting import LightSource
 from model import Model
@@ -27,7 +28,6 @@ class Scene(object):
             ls.lit_scene(self.shader.program_id, self.eye.cameraPos)
 
         for model in self.models:
-            
             if not model.shader is None:
                 view = self.eye.view
                 if model.background:
@@ -39,10 +39,10 @@ class Scene(object):
             else:
                 self.shader.update(self.eye.view, self.projection)
 
-            if model.pov:
-                new_pos = (self.eye.cameraPos+glm.vec3(0.0, -10.0, -10*model.scale.x))
-                model.scale_n_place(new_pos, scale=model.scale)
-                model.set_orientation(self.eye.cameraRight, self.eye.pitch)
+            # if model.pov:
+            #     new_pos = (self.eye.cameraPos+glm.vec3(0.0, -10.0, -10*model.scale.x))
+            #     model.scale_n_place(new_pos, scale=model.scale)
+            #     model.set_orientation(self.eye.cameraRight, self.eye.pitch)
 
             model.draw(self.shader.program_id)
 

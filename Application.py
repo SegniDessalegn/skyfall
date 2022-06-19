@@ -20,10 +20,10 @@ def main():
     pl.setAttenuation(1.0, 0.000001, 0.0000032)
 
     sl = SpotLight(glm.vec3(1), glm.vec3(1), glm.vec3(1))
-    sl.setDirection(renderer.camera.cameraFront)
+    sl.setDirection(Aircraft.camera.cameraFront)
     sl.setAttenuation(1.0, 0.00001, 0.000032)
     sl.setUpCutoff(50, 60)
-    sl.setPosition(renderer.camera.cameraPos)
+    sl.setPosition(Aircraft.camera.cameraPos)
 
     renderer.configure_light_source([dl])
     renderer.setupEnvironment([
@@ -43,7 +43,7 @@ def main():
 
     # skydome = Model()
     # skydome.load_model('resources/models/dome/dome.obj')
-    # # skydome.background = True
+    # # skydome.backgrouand = True
     # skydome.scale_n_place(glm.vec3(-245000.0, 0.0, -245000.0), glm.vec3(1000))
     # renderer.add_model(skydome)
 
@@ -74,13 +74,11 @@ def main():
     ocean_final.scale_n_place(glm.vec3(1000.0, -5090.0, 9950.0), glm.vec3(500000.0))
     renderer.add_model(ocean_final)
 
-
     weird_aircraft = Aircraft()
-    weird_aircraft.make_POV()
+    # weird_aircraft.make_POV()
     weird_aircraft.load_model('resources/models/Aircraft/E 45 Aircraft_obj.obj')
     weird_aircraft.scale_n_place(glm.vec3(1000.0, -5090.0, 9950.0), glm.vec3(10))
     renderer.add_model(weird_aircraft)
-
     renderer.start()
 
 

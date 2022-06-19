@@ -2,6 +2,7 @@ from this import s
 from OpenGL import GL as gl
 import glfw
 import sys
+from Aircraft import Aircraft
 from Mesh import Material, Mesh
 from Shader import Shader
 from Camera import *
@@ -72,8 +73,8 @@ class Renderer:
         self.width = width
         self.height = height
 
-        self.camera = Camera(glm.vec3(1000.0, -5000.0, 10000.0), glm.vec3(1000.0, -10000.0, 0.0))
-        # self.camera = Camera(glm.vec3(0.0, 0.0, 1.0), glm.vec3(0.0, 0.0, 0.0))
+        # Aircraft.camera = Aircraft.camera
+        # Aircraft.camera = Camera(glm.vec3(0.0, 0.0, 1.0), glm.vec3(0.0, 0.0, 0.0))
         
         if not glfw.init():
             print("Failed to initialize glfw!")
@@ -103,7 +104,7 @@ class Renderer:
         
         # Default shader
         shader = Shader("shaders/vShader.sdr", "shaders/fShader.sdr")
-        self.scene = Scene(shader, self.camera)
+        self.scene = Scene(shader, Aircraft.camera)
         self.scene.projection = glm.perspective(45.0, self.width / self.height, 1, 1000000000)
         self.environment = None
 
@@ -126,7 +127,7 @@ class Renderer:
             currentFrameTime = glfw.get_time()
             Camera.deltaTime = currentFrameTime - Renderer.previousFrameTime
             # print(1/Camera.deltaTime*100, " FPS")
-            self.camera.update()
+            Aircraft.camera.update()
             # Rendering commands go here
             
             gl.glClearColor(0.65, 0.80, 0.95, 1.0)
@@ -231,34 +232,35 @@ class Renderer:
 
     # @staticmethodself
     def mouse_callback(self, window, xPos, yPos):
-        # print(xPos, yPos)
-        xOffSet, yOffSet = 0, 0
-        if Renderer.first:
-            Renderer.first = False
-        else:
-            xOffSet = xPos - Renderer.lastXpos
-            yOffSet = Renderer.lastYpos - yPos
+        pass
+        # # print(xPos, yPos)
+        # xOffSet, yOffSet = 0, 0
+        # if Renderer.first:
+        #     Renderer.first = False
+        # else:
+        #     xOffSet = xPos - Renderer.lastXpos
+        #     yOffSet = Renderer.lastYpos - yPos
 
-        Renderer.lastXpos = xPos
-        Renderer.lastYpos = yPos
+        # Renderer.lastXpos = xPos
+        # Renderer.lastYpos = yPos
 
-        sensitivity = 0.05
-        xOffSet *= sensitivity
-        yOffSet *= sensitivity
+        # sensitivity = 0.05
+        # xOffSet *= sensitivity
+        # yOffSet *= sensitivity
 
-        self.camera.pitch += yOffSet
-        self.camera.yaw += xOffSet
+        # Aircraft.camera.pitch += yOffSet
+        # Aircraft.camera.yaw += xOffSet
 
-        if self.camera.pitch > 89.99:
-            self.camera.pitch = 89.99
-        elif self.camera.pitch < -89.99:
-            self.camera.pitch = -89.99
+        # if Aircraft.camera.pitch > 89.99:
+        #     Aircraft.camera.pitch = 89.99
+        # elif Aircraft.camera.pitch < -89.99:
+        #     Aircraft.camera.pitch = -89.99
 
-        newTarget = glm.vec3(0.0)
-        newTarget.x = glm.cos(glm.radians(self.camera.pitch)) * glm.cos(glm.radians(self.camera.yaw))
-        newTarget.y = glm.sin(glm.radians(self.camera.pitch))
-        newTarget.z = glm.cos(glm.radians(self.camera.pitch)) * glm.sin(glm.radians(self.camera.yaw))
+        # newTarget = glm.vec3(0.0)
+        # newTarget.x = glm.cos(glm.radians(Aircraft.camera.pitch)) * glm.cos(glm.radians(Aircraft.camera.yaw))
+        # newTarget.y = glm.sin(glm.radians(Aircraft.camera.pitch))
+        # newTarget.z = glm.cos(glm.radians(Aircraft.camera.pitch)) * glm.sin(glm.radians(Aircraft.camera.yaw))
 
-        self.camera.cameraFront = glm.normalize(newTarget)
-        self.camera.cameraRight = glm.normalize(glm.cross(self.camera.cameraFront, self.camera.cameraUp))
+        # Aircraft.camera.cameraFront = glm.normalize(newTarget)
+        # Aircraft.camera.cameraRight = glm.normalize(glm.cross(Aircraft.camera.cameraFront, Aircraft.camera.cameraUp))
 
